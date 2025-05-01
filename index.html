@@ -260,13 +260,14 @@
       const closePopup = document.getElementById('closePopup');
 
       if (!reviewForm) {
-        console.error('Form element not found!'); // Debug
+        console.error('Form element not found! Check if id="reviewForm" is correct.'); // Debug
         return;
       }
+      console.log('Form element found:', reviewForm); // Debug
 
       reviewForm.addEventListener('submit', function(e) {
         e.preventDefault(); // Prevent default form submission
-        console.log('Form submission triggered'); // Debug
+        console.log('Submit event listener triggered'); // Debug
 
         // Get form data
         const formData = new FormData(this);
@@ -307,8 +308,8 @@
           body: formData,
           mode: 'no-cors' // Use no-cors to bypass CORS restrictions
         })
-        .then(() => {
-          console.log('Fetch request completed (no-cors mode, no response body)'); // Debug
+        .then(response => {
+          console.log('Fetch request completed with response:', response); // Debug
           // Show confirmation popup
           overlay.classList.add('show');
           feedbackPopup.classList.add('show');
@@ -322,7 +323,7 @@
         })
         .catch(error => {
           console.error('Submission Error:', error); // Debug
-          // Even if there's an error, show the popup since the submission likely went through
+          // Show popup even if there's an error, assuming submission might still work
           overlay.classList.add('show');
           feedbackPopup.classList.add('show');
           reviewForm.reset();

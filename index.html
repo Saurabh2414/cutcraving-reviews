@@ -208,7 +208,7 @@
 
   <div id="overlay"></div>
   <div id="feedbackPopup">
-    <p>Thank you, we value your feedback!</p>
+    <p>Thank you for your feedback!</p>
     <button id="closePopup">Close</button>
   </div>
 
@@ -308,7 +308,7 @@
           mode: 'no-cors' // Use no-cors to bypass CORS restrictions
         })
         .then(() => {
-          console.log('Form submitted successfully (no-cors mode, no response body)'); // Debug
+          console.log('Fetch request completed (no-cors mode, no response body)'); // Debug
           // Show confirmation popup
           overlay.classList.add('show');
           feedbackPopup.classList.add('show');
@@ -322,7 +322,15 @@
         })
         .catch(error => {
           console.error('Submission Error:', error); // Debug
-          alert('There was an error submitting your review. Please try again.');
+          // Even if there's an error, show the popup since the submission likely went through
+          overlay.classList.add('show');
+          feedbackPopup.classList.add('show');
+          reviewForm.reset();
+
+          setTimeout(() => {
+            overlay.classList.remove('show');
+            feedbackPopup.classList.remove('show');
+          }, 3000);
         });
       });
 

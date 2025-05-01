@@ -86,6 +86,38 @@
     .btn-primary {
       width: 100%;
     }
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+    #feedbackPopup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      z-index: 1001;
+      text-align: center;
+    }
+    #closePopup {
+      margin-top: 10px;
+      background: none;
+      border: none;
+      color: #007bff;
+      cursor: pointer;
+    }
+    .show {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -126,7 +158,7 @@
 
   <div class="form-container mt-4">
     <h2>Submit Your Review</h2>
-    <form id="reviewForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdeN2j1JVwBAD0db7DHnuoXn1KRREAvNXlXvE6TS3j4AsJPZA/formResponse" method="POST" target="_blank">
+    <form id="reviewForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdeN2j1JVwBAD0db7DHnuoXn1KRREAvNXlXvE6TS3j4AsJPZA/formResponse" method="POST">
       <div class="form-group">
         <label for="customerName">Your Name *</label>
         <input type="text" id="customerName" name="entry.88163656" class="form-control" value="Amit Sharma" required>
@@ -174,6 +206,12 @@
     </form>
   </div>
 
+  <div id="overlay"></div>
+  <div id="feedbackPopup">
+    <p>Thank you, we value your feedback!</p>
+    <button id="closePopup">Close</button>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       console.log('DOM fully loaded and parsed'); // Debug
@@ -217,6 +255,9 @@
       });
       
       const reviewForm = document.getElementById('reviewForm');
+      const feedbackPopup = document.getElementById('feedbackPopup');
+      const overlay = document.getElementById('overlay');
+      const closePopup = document.getElementById('closePopup');
 
       if (!reviewForm) {
         console.error('Form element not found!'); // Debug
@@ -224,28 +265,77 @@
       }
 
       reviewForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission
         console.log('Form submission triggered'); // Debug
+
+        // Get form data
         const formData = new FormData(this);
         const data = Object.fromEntries(formData);
         console.log('Form Data:', data); // Debug
 
-        // Client-side validation
-        if (!data['entry.88163656'] || !data['entry.1594600333'] || !data['entry.117903416'] || !data['entry.1953070730'] || !data['entry.872365291'] || !data['entry.150717269'] || !data['entry.1817340342']) {
-          console.log('Validation failed: Missing required fields'); // Debug
-          e.preventDefault();
+        // Explicitly check each required field
+        const name = data['entry.88163656']?.trim();
+        const email = data['entry.1594600333']?.trim();
+        const product = data['entry.117903416']?.trim();
+        const rating = data['entry.1953070730']?.trim();
+        const review = data['entry.872365291']?.trim();
+        const verifiedPurchaser = data['entry.150717269'];
+        const termsService = data['entry.1817340342'];
+
+        // Validate required fields
+        if (!name || !email || !product || !rating || !review || !verifiedPurchaser || !termsService) {
+          console.log('Validation failed: Missing required fields', {
+            name, email, product, rating, review, verifiedPurchaser, termsService
+          }); // Debug
           alert('Please fill out all required fields and agree to the terms.');
           return;
         }
 
-        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data['entry.1594600333'])) {
-          console.log('Validation failed: Invalid email'); // Debug
-          e.preventDefault();
+        // Validate email format
+        const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (!emailRegex.test(email)) {
+          console.log('Validation failed: Invalid email', email); // Debug
           alert('Please enter a valid email address.');
           return;
         }
 
-        console.log('Validation passed, submitting form directly'); // Debug
-        // Form will submit directly and open a new tab due to target="_blank"
+        console.log('Validation passed, submitting form via AJAX with email:', email); // Debug
+
+        // Submit the form via AJAX
+        fetch('https://docs.google.com/forms/d/e/1FAIpQLSdeN2j1JVwBAD0db7DHnuoXn1KRREAvNXlXvE6TS3j4AsJPZA/formResponse', {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors' // Use no-cors to bypass CORS restrictions
+        })
+        .then(() => {
+          console.log('Form submitted successfully (no-cors mode, no response body)'); // Debug
+          // Show confirmation popup
+          overlay.classList.add('show');
+          feedbackPopup.classList.add('show');
+          reviewForm.reset();
+
+          // Auto-close popup after 3 seconds
+          setTimeout(() => {
+            overlay.classList.remove('show');
+            feedbackPopup.classList.remove('show');
+          }, 3000);
+        })
+        .catch(error => {
+          console.error('Submission Error:', error); // Debug
+          alert('There was an error submitting your review. Please try again.');
+        });
+      });
+
+      closePopup.addEventListener('click', function() {
+        console.log('Close popup clicked'); // Debug
+        overlay.classList.remove('show');
+        feedbackPopup.classList.remove('show');
+      });
+
+      overlay.addEventListener('click', function() {
+        console.log('Overlay clicked'); // Debug
+        overlay.classList.remove('show');
+        feedbackPopup.classList.remove('show');
       });
     });
   </script>

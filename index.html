@@ -116,7 +116,7 @@
       cursor: pointer;
     }
     .show {
-      display: block;
+      display: block !important; /* Ensure display: block overrides any other styles */
     }
   </style>
 </head>
@@ -265,9 +265,15 @@
       }
       console.log('Form element found:', reviewForm); // Debug
 
+      if (!feedbackPopup || !overlay || !closePopup) {
+        console.error('Popup elements not found:', { feedbackPopup, overlay, closePopup }); // Debug
+        return;
+      }
+      console.log('Popup elements found:', { feedbackPopup, overlay, closePopup }); // Debug
+
       reviewForm.addEventListener('submit', function(e) {
         e.preventDefault(); // Prevent default form submission
-        console.log('Submit event listener triggered'); // Debug
+        console.log('Form submission triggered'); // Debug
 
         // Get form data
         const formData = new FormData(this);
@@ -308,15 +314,19 @@
           body: formData,
           mode: 'no-cors' // Use no-cors to bypass CORS restrictions
         })
-        .then(response => {
-          console.log('Fetch request completed with response:', response); // Debug
+        .then(() => {
+          console.log('Fetch request completed (no-cors mode, no response body)'); // Debug
           // Show confirmation popup
+          console.log('Adding .show class to overlay and popup'); // Debug
           overlay.classList.add('show');
           feedbackPopup.classList.add('show');
+          console.log('Overlay classList after adding .show:', overlay.classList); // Debug
+          console.log('FeedbackPopup classList after adding .show:', feedbackPopup.classList); // Debug
           reviewForm.reset();
 
           // Auto-close popup after 3 seconds
           setTimeout(() => {
+            console.log('Auto-closing popup after 3 seconds'); // Debug
             overlay.classList.remove('show');
             feedbackPopup.classList.remove('show');
           }, 3000);
@@ -324,11 +334,15 @@
         .catch(error => {
           console.error('Submission Error:', error); // Debug
           // Show popup even if there's an error, assuming submission might still work
+          console.log('Adding .show class to overlay and popup (in catch block)'); // Debug
           overlay.classList.add('show');
           feedbackPopup.classList.add('show');
+          console.log('Overlay classList after adding .show (in catch):', overlay.classList); // Debug
+          console.log('FeedbackPopup classList after adding .show (in catch):', feedbackPopup.classList); // Debug
           reviewForm.reset();
 
           setTimeout(() => {
+            console.log('Auto-closing popup after 3 seconds (in catch block)'); // Debug
             overlay.classList.remove('show');
             feedbackPopup.classList.remove('show');
           }, 3000);

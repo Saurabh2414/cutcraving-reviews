@@ -116,7 +116,10 @@
       cursor: pointer;
     }
     .show {
-      display: block !important; /* Ensure display: block overrides any other styles */
+      display: block !important;
+    }
+    #hiddenIframe {
+      display: none;
     }
   </style>
 </head>
@@ -211,6 +214,7 @@
     <p>Thank you for your feedback!</p>
     <button id="closePopup">Close</button>
   </div>
+  <iframe id="hiddenIframe" name="hiddenIframe" style="display: none;"></iframe>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -258,6 +262,7 @@
       const feedbackPopup = document.getElementById('feedbackPopup');
       const overlay = document.getElementById('overlay');
       const closePopup = document.getElementById('closePopup');
+      const hiddenIframe = document.getElementById('hiddenIframe');
 
       if (!reviewForm) {
         console.error('Form element not found! Check if id="reviewForm" is correct.'); // Debug
@@ -265,13 +270,17 @@
       }
       console.log('Form element found:', reviewForm); // Debug
 
-      if (!feedbackPopup || !overlay || !closePopup) {
-        console.error('Popup elements not found:', { feedbackPopup, overlay, closePopup }); // Debug
+      if (!feedbackPopup || !overlay || !closePopup || !hiddenIframe) {
+        console.error('Required elements not found:', { feedbackPopup, overlay, closePopup, hiddenIframe }); // Debug
         return;
       }
-      console.log('Popup elements found:', { feedbackPopup, overlay, closePopup }); // Debug
+      console.log('All elements found:', { feedbackPopup, overlay, closePopup, hiddenIframe }); // Debug
 
-      reviewForm.addEventListener('submit', function(e) {
+      // Remove any existing submit event listeners to prevent duplicates
+      reviewForm.removeEventListener('submit', handleFormSubmit);
+      reviewForm.addEventListener('submit', handleFormSubmit);
+
+      function handleFormSubmit(e) {
         e.preventDefault(); // Prevent default form submission
         console.log('Form submission triggered'); // Debug
 
@@ -306,48 +315,45 @@
           return;
         }
 
-        console.log('Validation passed, submitting form via AJAX with email:', email); // Debug
+        console.log('Validation passed, submitting form via hidden iframe with email:', email); // Debug
 
-        // Submit the form via AJAX
-        fetch('https://docs.google.com/forms/d/e/1FAIpQLSdeN2j1JVwBAD0db7DHnuoXn1KRREAvNXlXvE6TS3j4AsJPZA/formResponse', {
-          method: 'POST',
-          body: formData,
-          mode: 'no-cors' // Use no-cors to bypass CORS restrictions
-        })
-        .then(() => {
-          console.log('Fetch request completed (no-cors mode, no response body)'); // Debug
-          // Show confirmation popup
-          console.log('Adding .show class to overlay and popup'); // Debug
-          overlay.classList.add('show');
-          feedbackPopup.classList.add('show');
-          console.log('Overlay classList after adding .show:', overlay.classList); // Debug
-          console.log('FeedbackPopup classList after adding .show:', feedbackPopup.classList); // Debug
-          reviewForm.reset();
+        // Set the form's target to the hidden iframe to avoid redirection
+        reviewForm.setAttribute('target', 'hiddenIframe');
 
-          // Auto-close popup after 3 seconds
-          setTimeout(() => {
-            console.log('Auto-closing popup after 3 seconds'); // Debug
-            overlay.classList.remove('show');
-            feedbackPopup.classList.remove('show');
-          }, 3000);
-        })
-        .catch(error => {
-          console.error('Submission Error:', error); // Debug
-          // Show popup even if there's an error, assuming submission might still work
-          console.log('Adding .show class to overlay and popup (in catch block)'); // Debug
-          overlay.classList.add('show');
-          feedbackPopup.classList.add('show');
-          console.log('Overlay classList after adding .show (in catch):', overlay.classList); // Debug
-          console.log('FeedbackPopup classList after adding .show (in catch):', feedbackPopup.classList); // Debug
-          reviewForm.reset();
+        // Listen for the iframe load to confirm submission
+        hiddenIframe.onload = function() {
+          console.log('Iframe loaded, form submission likely completed'); // Debug
+        };
+        hiddenIframe.onerror = function() {
+          console.error('Iframe error during form submission'); // Debug
+        };
 
-          setTimeout(() => {
-            console.log('Auto-closing popup after 3 seconds (in catch block)'); // Debug
-            overlay.classList.remove('show');
-            feedbackPopup.classList.remove('show');
-          }, 3000);
-        });
-      });
+        // Submit the form to the hidden iframe
+        reviewForm.submit();
+        console.log('Form submitted to hidden iframe'); // Debug
+
+        // Show confirmation popup immediately
+        console.log('Adding .show class to overlay and popup'); // Debug
+        overlay.classList.add('show');
+        feedbackPopup.classList.add('show');
+        console.log('Overlay classList after adding .show:', overlay.classList); // Debug
+        console.log('FeedbackPopup classList after adding .show:', feedbackPopup.classList); // Debug
+
+        // Fallback alert in case popup doesn't display
+        if (!overlay.classList.contains('show') || !feedbackPopup.classList.contains('show')) {
+          console.error('Popup failed to display'); // Debug
+          alert('Thank you for your feedback! (Popup display failed, using alert as fallback)');
+        }
+
+        reviewForm.reset();
+
+        // Auto-close popup after 3 seconds
+        setTimeout(() => {
+          console.log('Auto-closing popup after 3 seconds'); // Debug
+          overlay.classList.remove('show');
+          feedbackPopup.classList.remove('show');
+        }, 3000);
+      }
 
       closePopup.addEventListener('click', function() {
         console.log('Close popup clicked'); // Debug

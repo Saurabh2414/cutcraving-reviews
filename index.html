@@ -494,22 +494,19 @@
           <h2>Share Your Experience</h2>
           <p>Your review helps others and improves our products—join the community!</p>
         </div>
-        <!-- 
-        Updated form with correct Google Form action URL and entry IDs
-        Note: Entries shown here are examples - you'll need to check your actual Google Form for the correct IDs
-        -->
+        <!-- Corrected form with proper Google Form entry IDs -->
         <form class="review-form" id="reviewForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdeN2j1JVwBAD0db7DHnuoXn1KRREAvNXlXvE6TS3j4AsJPZA/formResponse" method="POST" target="hidden-iframe">
           <div class="form-row">
             <div class="form-col">
               <div class="form-group">
                 <label for="customerName" class="form-label">Your Name</label>
-                <input type="text" id="customerName" name="entry.2005620554" class="form-control" placeholder="Enter your name" required>
+                <input type="text" id="customerName" name="entry.88163656" class="form-control" placeholder="Enter your name" required>
               </div>
             </div>
             <div class="form-col">
               <div class="form-group">
                 <label for="customerPhone" class="form-label">Phone Number</label>
-                <input type="tel" id="customerPhone" name="entry.1045781291" class="form-control" placeholder="+91 XXXXX XXXXX">
+                <input type="tel" id="customerPhone" name="entry.1261310478" class="form-control" placeholder="+91 XXXXX XXXXX">
               </div>
             </div>
           </div>
@@ -517,14 +514,14 @@
             <div class="form-col">
               <div class="form-group">
                 <label for="customerEmail" class="form-label">Email Address</label>
-                <input type="email" id="customerEmail" name="entry.1166974658" class="form-control" placeholder="Enter your email" required>
+                <input type="email" id="customerEmail" name="entry.1594600333" class="form-control" placeholder="Enter your email" required>
                 <small class="form-text">Your email will not be published.</small>
               </div>
             </div>
             <div class="form-col">
               <div class="form-group">
                 <label for="productSelect" class="form-label">Select Product</label>
-                <select id="productSelect" name="entry.1065046570" class="product-select" required>
+                <select id="productSelect" name="entry.117903416" class="product-select" required>
                   <option value="" disabled selected>Choose the product...</option>
                   <option value="Blue Tea">Blue Tea</option>
                   <option value="Peanut Butter">Peanut Butter</option>
@@ -537,24 +534,24 @@
           <div class="form-group">
             <label class="form-label">Your Rating</label>
             <div class="rating-input">
-              <input type="radio" id="star5" name="entry.839337160" value="5"><label for="star5">★</label>
-              <input type="radio" id="star4" name="entry.839337160" value="4"><label for="star4">★</label>
-              <input type="radio" id="star3" name="entry.839337160" value="3"><label for="star3">★</label>
-              <input type="radio" id="star2" name="entry.839337160" value="2"><label for="star2">★</label>
-              <input type="radio" id="star1" name="entry.839337160" value="1"><label for="star1">★</label>
+              <input type="radio" id="star5" name="entry.1953070730" value="5"><label for="star5">★</label>
+              <input type="radio" id="star4" name="entry.1953070730" value="4"><label for="star4">★</label>
+              <input type="radio" id="star3" name="entry.1953070730" value="3"><label for="star3">★</label>
+              <input type="radio" id="star2" name="entry.1953070730" value="2"><label for="star2">★</label>
+              <input type="radio" id="star1" name="entry.1953070730" value="1"><label for="star1">★</label>
             </div>
           </div>
           <div class="form-group">
             <label for="reviewText" class="form-label">Your Review</label>
-            <textarea id="reviewText" name="entry.1387850929" class="form-control" placeholder="Tell others about your experience..." required></textarea>
+            <textarea id="reviewText" name="entry.872365291" class="form-control" placeholder="Tell others about your experience..." required></textarea>
           </div>
           <div class="form-group">
             <div class="form-check">
-              <input type="checkbox" id="verifiedPurchase" name="entry.2137556282" value="Yes" class="form-check-input">
+              <input type="checkbox" id="verifiedPurchase" name="entry.150717269" value="yes" class="form-check-input">
               <label for="verifiedPurchase" class="form-check-label">I am a verified purchaser</label>
             </div>
             <div class="form-check">
-              <input type="checkbox" id="termsAgree" name="entry.2069858001" value="Yes" class="form-check-input" required>
+              <input type="checkbox" id="termsAgree" name="entry.1817340342" value="yes" class="form-check-input" required>
               <label for="termsAgree" class="form-check-label">I agree to the terms of service</label>
             </div>
           </div>
@@ -605,164 +602,207 @@
     Thank you, we value your feedback!
   </div>
 
+  <!-- Hidden iframe for form submission -->
+  <iframe name="hidden-iframe" id="hidden-iframe" style="display:none;"></iframe>
+  
   <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // READ MORE BUTTONS
-  const readMoreButtons = document.querySelectorAll('.read-more-btn');
-  readMoreButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const reviewId = this.getAttribute('data-review-id');
-      const reviewText = this.closest('.review-card').querySelector('.review-text');
-      const expanded = this.getAttribute('aria-expanded') === 'true';
-      
-      reviewText.style.transition = 'max-height 0.3s ease';
-      if (expanded) {
-        reviewText.classList.remove('expanded');
-        this.setAttribute('aria-expanded', 'false');
-        this.textContent = 'Read More';
-      } else {
-        reviewText.classList.add('expanded');
-        this.setAttribute('aria-expanded', 'true');
-        this.textContent = 'Read Less';
-      }
-    });
-  });
-  
-  // FILTER BUTTONS
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const reviewCards = document.querySelectorAll('.review-card');
-  
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      filterButtons.forEach(btn => btn.classList.remove('active'));
-      this.classList.add('active');
-      const filter = this.textContent.toLowerCase().replace(' ', '-');
-      
-      reviewCards.forEach(card => {
-        const product = card.getAttribute('data-product');
-        card.style.display = (filter === 'all-products' || product === filter) ? 'flex' : 'none';
+    document.addEventListener('DOMContentLoaded', function() {
+      // READ MORE BUTTONS
+      const readMoreButtons = document.querySelectorAll('.read-more-btn');
+      readMoreButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const reviewId = this.getAttribute('data-review-id');
+          const reviewText = this.closest('.review-card').querySelector('.review-text');
+          const expanded = this.getAttribute('aria-expanded') === 'true';
+          
+          reviewText.style.transition = 'max-height 0.3s ease';
+          if (expanded) {
+            reviewText.classList.remove('expanded');
+            this.setAttribute('aria-expanded', 'false');
+            this.textContent = 'Read More';
+          } else {
+            reviewText.classList.add('expanded');
+            this.setAttribute('aria-expanded', 'true');
+            this.textContent = 'Read Less';
+          }
+        });
       });
-    });
-  });
-  
-  // FORM SUBMISSION
-  const reviewForm = document.getElementById('reviewForm');
-  const feedbackPopup = document.getElementById('feedbackPopup');
-  const overlay = document.getElementById('overlay');
-  const closePopup = document.getElementById('closePopup');
-  const hiddenIframe = document.getElementById('hidden-iframe');
+      
+      // FILTER BUTTONS
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const reviewCards = document.querySelectorAll('.review-card');
+      
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          const filter = this.textContent.toLowerCase().replace(' ', '-');
+          
+          reviewCards.forEach(card => {
+            const product = card.getAttribute('data-product');
+            card.style.display = (filter === 'all-products' || product === filter) ? 'flex' : 'none';
+          });
+        });
+      });
+      
+      // FORM SUBMISSION
+      const reviewForm = document.getElementById('reviewForm');
+      const feedbackPopup = document.getElementById('feedbackPopup');
+      const overlay = document.getElementById('overlay');
+      const closePopup = document.getElementById('closePopup');
+      const hiddenIframe = document.getElementById('hidden-iframe');
 
-  if (!reviewForm || !feedbackPopup || !overlay || !closePopup) {
-    console.error('Required elements not found');
-    return;
-  }
+      if (!reviewForm || !feedbackPopup || !overlay || !closePopup || !hiddenIframe) {
+        console.error('Required elements not found');
+        return;
+      }
 
-  // Handle iframe load event (occurs after form submission)
-  if (hiddenIframe) {
-    hiddenIframe.addEventListener('load', function() {
-      console.log('Form submitted via iframe');
-      
-      // Show confirmation popup
-      overlay.classList.add('show');
-      feedbackPopup.classList.add('show');
-      
-      // Reset form
-      reviewForm.reset();
-      
-      // Auto-close popup after 3 seconds
-      setTimeout(() => {
+      // Handle iframe load event (occurs after form submission)
+      hiddenIframe.addEventListener('load', function() {
+        // This will trigger after form submission
+        console.log('Form submitted via iframe');
+        
+        // Show confirmation popup
+        overlay.classList.add('show');
+        feedbackPopup.classList.add('show');
+        
+        // Reset form
+        reviewForm.reset();
+        
+        // Auto-close popup after 3 seconds
+        setTimeout(() => {
+          overlay.classList.remove('show');
+          feedbackPopup.classList.remove('show');
+        }, 3000);
+      });
+
+      // Form validation without preventing normal submission
+      reviewForm.addEventListener('submit', function(e) {
+        // Get form data
+        const formData = new FormData(reviewForm);
+        
+        // Log form data being submitted
+        console.log('Form submission attempted');
+        console.log('Submitting form data:');
+        for (let pair of formData.entries()) {
+          console.log(`${pair[0]}: ${pair[1]}`);
+        }
+        
+        // Basic validation
+        const name = formData.get('entry.88163656')?.trim();
+        const email = formData.get('entry.1594600333')?.trim();
+        const product = formData.get('entry.117903416')?.trim();
+        const rating = formData.get('entry.1953070730')?.trim();
+        const review = formData.get('entry.872365291')?.trim();
+        const termsService = formData.get('entry.1817340342');
+
+        // Validate required fields
+        if (!name || !email || !product || !rating || !review || !termsService) {
+          console.log('Validation failed: Missing required fields');
+          alert('Please fill out all required fields and agree to the terms.');
+          e.preventDefault(); // Only prevent submission if validation fails
+          return;
+        }
+
+        // Validate email format
+        const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (!emailRegex.test(email)) {
+          console.log('Validation failed: Invalid email');
+          alert('Please enter a valid email address.');
+          e.preventDefault();
+          return;
+        }
+
+        // If validation passes, let the form submit naturally to the iframe
+        console.log('Form validation passed, submitting to iframe');
+      });
+
+      // Close popup when X button is clicked
+      closePopup.addEventListener('click', function() {
         overlay.classList.remove('show');
         feedbackPopup.classList.remove('show');
-      }, 3000);
+      });
+
+      // Close popup when overlay is clicked
+      overlay.addEventListener('click', function() {
+        overlay.classList.remove('show');
+        feedbackPopup.classList.remove('show');
+      });
     });
+  </script>
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Customer Reviews - CutCraving",
+    "url": "https://cutcraving.com/pages/reviews",
+    "description": "Read authentic customer reviews of CutCraving's natural health products like Blue Tea, Peanut Butter, and Chamomile Tea. Share your experience!",
+    "publisher": {
+      "@type": "Organization",
+      "name": "CutCraving",
+      "url": "https://cutcraving.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://cutcraving.com/assets/logo.png"
+      }
+    },
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "Review",
+          "author": {"@type": "Person", "name": "Nidhi Singh"},
+          "reviewBody": "Blue Tea bilkul amazing hai! Weight loss me help mili hai, aur taste kaafi acha lagta hain!",
+          "reviewRating": {"@type": "Rating", "ratingValue": "4", "bestRating": "5"},
+          "datePublished": "2025-04-01",
+          "itemReviewed": {
+            "@type": "Product",
+            "name": "Blue Tea",
+            "url": "https://cutcraving.com/products/blue-tea",
+            "image": "https://cutcraving.com/products/blue-tea.jpg",
+            "brand": {"@type": "Brand", "name": "CutCraving"},
+            "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.2", "reviewCount": "50"}
+          }
+        },
+        {
+          "@type": "Review",
+          "author": {"@type": "Person", "name": "Sandeep Yadav"},
+          "reviewBody": "Peanut Butter bilkul perfect hai! Itna creamy aur rich hai, bina guilt ke maza aata hai!",
+          "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+          "datePublished": "2025-04-02",
+          "itemReviewed": {
+            "@type": "Product",
+            "name": "Peanut Butter",
+            "url": "https://cutcraving.com/products/peanut-butter",
+            "image": "https://cutcraving.com/products/peanut-butter.jpg",
+            "brand": {"@type": "Brand", "name": "CutCraving"},
+            "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "75"}
+          }
+        },
+        {
+          "@type": "Review",
+          "author": {"@type": "Person", "name": "Praveen Kumar"},
+          "reviewBody": "Chamomile Tea thoda mild hai, par sone se pehle kaafi soothing lagti hai.",
+          "reviewRating": {"@type": "Rating", "ratingValue": "3", "bestRating": "5"},
+          "datePublished": "2025-04-03",
+          "itemReviewed": {
+            "@type": "Product",
+            "name": "Chamomile Tea",
+            "url": "https://cutcraving.com/products/chamomile-tea",
+            "image": "https://cutcraving.com/products/chamomile-tea.jpg",
+            "brand": {"@type": "Brand", "name": "CutCraving"},
+            "aggregateRating": {"@type": "AggregateRating", "ratingValue": "3.9", "reviewCount": "30"}
+          }
+        }
+      ],
+      "numberOfItems": 3,
+      "itemListOrder": "http://schema.org/ItemListOrderDescending"
+    },
+    "potentialAction": {"@type": "WriteAction", "target": "https://cutcraving.com/pages/reviews#write-review"},
+    "inLanguage": ["en", "hi"],
+    "lastReviewed": "2025-05-01"
   }
-
-  // Form validation without preventing normal submission
-  reviewForm.addEventListener('submit', function(e) {
-    // Get form data
-    const formData = new FormData(reviewForm);
-    
-    // Basic validation
-    const name = formData.get('entry.2005620554')?.trim();
-    const email = formData.get('entry.1166974658')?.trim();
-    const product = formData.get('entry.1065046570')?.trim();
-    const rating = formData.get('entry.839337160')?.trim();
-    const review = formData.get('entry.1387850929')?.trim();
-    const termsService = formData.get('entry.2069858001');
-
-    // Validate required fields
-    if (!name || !email || !product || !rating || !review || !termsService) {
-      console.log('Validation failed: Missing required fields');
-      alert('Please fill out all required fields and agree to the terms.');
-      e.preventDefault(); // Only prevent submission if validation fails
-      return;
-    }
-
-    // Validate email format
-    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (!emailRegex.test(email)) {
-      console.log('Validation failed: Invalid email');
-      alert('Please enter a valid email address.');
-      e.preventDefault();
-      return;
-    }
-
-    // If validation passes, let the form submit naturally to the iframe
-    console.log('Form validation passed, submitting to iframe');
-  });
-
-  // Close popup when X button is clicked
-  closePopup.addEventListener('click', function() {
-    overlay.classList.remove('show');
-    feedbackPopup.classList.remove('show');
-  });
-
-  // Close popup when overlay is clicked
-  overlay.addEventListener('click', function() {
-    overlay.classList.remove('show');
-    feedbackPopup.classList.remove('show');
-  });
-
-  // FOR DEBUGGING - Uncomment during development to test form entry IDs
-  /*
-  const debugButton = document.createElement('button');
-  debugButton.type = 'button';
-  debugButton.textContent = 'Debug Form';
-  debugButton.style.marginTop = '20px';
-  debugButton.style.padding = '10px 15px';
-  debugButton.style.backgroundColor = '#f1f1f1';
-  debugButton.style.border = '1px solid #ddd';
-  debugButton.style.borderRadius = '4px';
-  debugButton.style.cursor = 'pointer';
-  
-  debugButton.onclick = function() {
-    // Add test data
-    document.querySelector('input[name="entry.2005620554"]').value = 'Test User';
-    document.querySelector('input[name="entry.1045781291"]').value = '9876543210';
-    document.querySelector('input[name="entry.1166974658"]').value = 'test@example.com';
-    document.querySelector('select[name="entry.1065046570"]').value = 'Blue Tea';
-    document.querySelector('input[name="entry.839337160"][value="4"]').checked = true;
-    document.querySelector('textarea[name="entry.1387850929"]').value = 'This is a test review.';
-    document.querySelector('input[name="entry.2137556282"]').checked = true;
-    document.querySelector('input[name="entry.2069858001"]').checked = true;
-    
-    // Create form data with the test values
-    const testFormData = new FormData(reviewForm);
-    
-    console.log('Test form fields and their values:');
-    for (let pair of testFormData.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
-    }
-    
-    alert('Debug information has been logged to the console. You can now submit the form to test.');
-  };
-  
-  // Insert the debug button after the form
-  reviewForm.parentNode.insertBefore(debugButton, reviewForm.nextSibling);
-  */
-});
-</script>
-<!-- Add this hidden iframe just before the closing </body> tag -->
-<iframe name="hidden-iframe" id="hidden-iframe" style="display:none;"></iframe>
+  </script>
 </body>
 </html>

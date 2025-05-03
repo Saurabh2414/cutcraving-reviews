@@ -494,19 +494,21 @@
           <h2>Share Your Experience</h2>
           <p>Your review helps others and improves our products—join the community!</p>
         </div>
+        <!-- 
+        Updated form with correct Google Form action URL and entry IDs
+        Note: Entries shown here are examples - you'll need to check your actual Google Form for the correct IDs
+        -->
         <form class="review-form" id="reviewForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdeN2j1JVwBAD0db7DHnuoXn1KRREAvNXlXvE6TS3j4AsJPZA/formResponse" method="POST">
           <div class="form-row">
             <div class="form-col">
               <div class="form-group">
                 <label for="customerName" class="form-label">Your Name</label>
-                <!-- Replace 'entry.2005620554' with the correct 'entry.' ID from your Google Form -->
                 <input type="text" id="customerName" name="entry.2005620554" class="form-control" placeholder="Enter your name" required>
               </div>
             </div>
             <div class="form-col">
               <div class="form-group">
                 <label for="customerPhone" class="form-label">Phone Number</label>
-                <!-- Replace 'entry.1045781291' with the correct 'entry.' ID from your Google Form -->
                 <input type="tel" id="customerPhone" name="entry.1045781291" class="form-control" placeholder="+91 XXXXX XXXXX">
               </div>
             </div>
@@ -515,7 +517,6 @@
             <div class="form-col">
               <div class="form-group">
                 <label for="customerEmail" class="form-label">Email Address</label>
-                <!-- Replace 'entry.1166974658' with the correct 'entry.' ID from your Google Form -->
                 <input type="email" id="customerEmail" name="entry.1166974658" class="form-control" placeholder="Enter your email" required>
                 <small class="form-text">Your email will not be published.</small>
               </div>
@@ -523,7 +524,6 @@
             <div class="form-col">
               <div class="form-group">
                 <label for="productSelect" class="form-label">Select Product</label>
-                <!-- Replace 'entry.1065046570' with the correct 'entry.' ID from your Google Form -->
                 <select id="productSelect" name="entry.1065046570" class="product-select" required>
                   <option value="" disabled selected>Choose the product...</option>
                   <option value="Blue Tea">Blue Tea</option>
@@ -537,7 +537,6 @@
           <div class="form-group">
             <label class="form-label">Your Rating</label>
             <div class="rating-input">
-              <!-- Replace 'entry.839337160' with the correct 'entry.' ID from your Google Form -->
               <input type="radio" id="star5" name="entry.839337160" value="5"><label for="star5">★</label>
               <input type="radio" id="star4" name="entry.839337160" value="4"><label for="star4">★</label>
               <input type="radio" id="star3" name="entry.839337160" value="3"><label for="star3">★</label>
@@ -547,17 +546,14 @@
           </div>
           <div class="form-group">
             <label for="reviewText" class="form-label">Your Review</label>
-            <!-- Replace 'entry.1387850929' with the correct 'entry.' ID from your Google Form -->
             <textarea id="reviewText" name="entry.1387850929" class="form-control" placeholder="Tell others about your experience..." required></textarea>
           </div>
           <div class="form-group">
             <div class="form-check">
-              <!-- Replace 'entry.2137556282' with the correct 'entry.' ID from your Google Form -->
               <input type="checkbox" id="verifiedPurchase" name="entry.2137556282" value="Yes" class="form-check-input">
               <label for="verifiedPurchase" class="form-check-label">I am a verified purchaser</label>
             </div>
             <div class="form-check">
-              <!-- Replace 'entry.2069858001' with the correct 'entry.' ID from your Google Form -->
               <input type="checkbox" id="termsAgree" name="entry.2069858001" value="Yes" class="form-check-input" required>
               <label for="termsAgree" class="form-check-label">I agree to the terms of service</label>
             </div>
@@ -608,18 +604,13 @@
     <button class="close-btn" id="closePopup">×</button>
     Thank you, we value your feedback!
   </div>
-  
-  <!-- Hidden Iframe for Form Submission -->
-  <iframe id="hiddenIframe" name="hiddenIframe" style="display: none;"></iframe>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('DOM fully loaded and parsed'); // Debug
-
+      // READ MORE BUTTONS
       const readMoreButtons = document.querySelectorAll('.read-more-btn');
       readMoreButtons.forEach(button => {
         button.addEventListener('click', function() {
-          console.log('Read More button clicked'); // Debug
           const reviewId = this.getAttribute('data-review-id');
           const reviewText = this.closest('.review-card').querySelector('.review-text');
           const expanded = this.getAttribute('aria-expanded') === 'true';
@@ -637,12 +628,12 @@
         });
       });
       
+      // FILTER BUTTONS
       const filterButtons = document.querySelectorAll('.filter-btn');
       const reviewCards = document.querySelectorAll('.review-card');
       
       filterButtons.forEach(button => {
         button.addEventListener('click', function() {
-          console.log('Filter button clicked:', this.textContent); // Debug
           filterButtons.forEach(btn => btn.classList.remove('active'));
           this.classList.add('active');
           const filter = this.textContent.toLowerCase().replace(' ', '-');
@@ -654,23 +645,16 @@
         });
       });
       
+      // FORM SUBMISSION
       const reviewForm = document.getElementById('reviewForm');
       const feedbackPopup = document.getElementById('feedbackPopup');
       const overlay = document.getElementById('overlay');
       const closePopup = document.getElementById('closePopup');
-      const hiddenIframe = document.getElementById('hiddenIframe');
 
-      if (!reviewForm) {
-        console.error('Form element not found! Check if id="reviewForm" is correct.'); // Debug
+      if (!reviewForm || !feedbackPopup || !overlay || !closePopup) {
+        console.error('Required elements not found');
         return;
       }
-      console.log('Form element found:', reviewForm); // Debug
-
-      if (!feedbackPopup || !overlay || !closePopup || !hiddenIframe) {
-        console.error('Required elements not found:', { feedbackPopup, overlay, closePopup, hiddenIframe }); // Debug
-        return;
-      }
-      console.log('All elements found:', { feedbackPopup, overlay, closePopup, hiddenIframe }); // Debug
 
       // Remove any existing submit event listeners to prevent duplicates
       reviewForm.removeEventListener('submit', handleFormSubmit);
@@ -678,26 +662,27 @@
 
       function handleFormSubmit(e) {
         e.preventDefault(); // Prevent default form submission
-        console.log('Form submission triggered'); // Debug
+        console.log('Form submission triggered');
 
         // Get form data
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData);
-        console.log('Form Data being submitted:', data); // Debug
-
-        // Explicitly check each required field
-        const name = data['entry.2005620554']?.trim();
-        const email = data['entry.1166974658']?.trim();
-        const product = data['entry.1065046570']?.trim();
-        const rating = data['entry.839337160']?.trim();
-        const review = data['entry.1387850929']?.trim();
-        const termsService = data['entry.2069858001'];
+        const formData = new FormData(reviewForm);
+        
+        // Log the form data to check what's being submitted
+        for (let pair of formData.entries()) {
+          console.log(pair[0] + ': ' + pair[1]);
+        }
+        
+        // Basic validation
+        const name = formData.get('entry.2005620554')?.trim();
+        const email = formData.get('entry.1166974658')?.trim();
+        const product = formData.get('entry.1065046570')?.trim();
+        const rating = formData.get('entry.839337160')?.trim();
+        const review = formData.get('entry.1387850929')?.trim();
+        const termsService = formData.get('entry.2069858001');
 
         // Validate required fields
         if (!name || !email || !product || !rating || !review || !termsService) {
-          console.log('Validation failed: Missing required fields', {
-            name, email, product, rating, review, termsService
-          }); // Debug
+          console.log('Validation failed: Missing required fields');
           alert('Please fill out all required fields and agree to the terms.');
           return;
         }
@@ -705,79 +690,80 @@
         // Validate email format
         const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (!emailRegex.test(email)) {
-          console.log('Validation failed: Invalid email', email); // Debug
+          console.log('Validation failed: Invalid email');
           alert('Please enter a valid email address.');
           return;
         }
-
-        console.log('Validation passed, submitting form via hidden iframe with email:', email); // Debug
-
-        // Set the form's target to the hidden iframe to avoid redirection
-        reviewForm.setAttribute('target', 'hiddenIframe');
-
-        // Serialize form data for debugging
-        const serializedData = new URLSearchParams(formData).toString();
-        console.log('Serialized form data being sent to iframe:', serializedData); // Debug
-
-        // Listen for the iframe load to confirm submission
-        hiddenIframe.onload = function() {
-          console.log('Iframe loaded, form submission likely completed'); // Debug
-          // Check the iframe's content to confirm submission
-          try {
-            const iframeDoc = hiddenIframe.contentDocument || hiddenIframe.contentWindow.document;
-            console.log('Iframe content:', iframeDoc.body.innerHTML); // Debug
-            if (iframeDoc.body.innerHTML.includes('Your response has been recorded')) {
-              console.log('Submission confirmed: Response recorded'); // Debug
-            } else {
-              console.warn('Submission may have failed: Response not recorded in iframe'); // Debug
-            }
-          } catch (error) {
-            console.error('Error accessing iframe content:', error); // Debug
-          }
-        };
-        hiddenIframe.onerror = function() {
-          console.error('Iframe error during form submission'); // Debug
-        };
-
-        // Submit the form to the hidden iframe
-        reviewForm.submit();
-        console.log('Form submitted to hidden iframe'); // Debug
-
-        // Show confirmation popup immediately
-        console.log('Adding .show class to overlay and popup'); // Debug
-        overlay.classList.add('show');
-        feedbackPopup.classList.add('show');
-        console.log('Overlay classList after adding .show:', overlay.classList); // Debug
-        console.log('FeedbackPopup classList after adding .show:', feedbackPopup.classList); // Debug
-        console.log('Popup displayed successfully'); // Debug
-
-        // Fallback alert in case popup doesn't display
-        if (!overlay.classList.contains('show') || !feedbackPopup.classList.contains('show')) {
-          console.error('Popup failed to display'); // Debug
-          alert('Thank you for your feedback! (Popup display failed, using alert as fallback)');
-        }
-
-        reviewForm.reset();
-
-        // Auto-close popup after 3 seconds
-        setTimeout(() => {
-          console.log('Auto-closing popup after 3 seconds'); // Debug
-          overlay.classList.remove('show');
-          feedbackPopup.classList.remove('show');
-        }, 3000);
+        
+        // Submit the form using fetch API with no-cors mode
+        fetch(reviewForm.action, {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors' // Important for cross-domain requests to Google Forms
+        })
+        .then(() => {
+          console.log('Form submitted successfully');
+          
+          // Show confirmation popup
+          overlay.classList.add('show');
+          feedbackPopup.classList.add('show');
+          reviewForm.reset();
+          
+          // Auto-close popup after 3 seconds
+          setTimeout(() => {
+            overlay.classList.remove('show');
+            feedbackPopup.classList.remove('show');
+          }, 3000);
+        })
+        .catch(error => {
+          console.error('Error submitting form:', error);
+          alert('There was an error submitting your review. Please try again.');
+        });
       }
 
+      // Close popup when X button is clicked
       closePopup.addEventListener('click', function() {
-        console.log('Close popup clicked'); // Debug
         overlay.classList.remove('show');
         feedbackPopup.classList.remove('show');
       });
 
+      // Close popup when overlay is clicked
       overlay.addEventListener('click', function() {
-        console.log('Overlay clicked'); // Debug
         overlay.classList.remove('show');
         feedbackPopup.classList.remove('show');
       });
+      
+      // FOR TESTING ONLY - Uncomment during development to test form entry IDs
+      /*
+      function testFormEntries() {
+        // Add test data
+        document.getElementById('customerName').value = 'Test User';
+        document.getElementById('customerPhone').value = '9876543210';
+        document.getElementById('customerEmail').value = 'test@example.com';
+        document.getElementById('productSelect').value = 'Blue Tea';
+        document.getElementById('star4').checked = true;
+        document.getElementById('reviewText').value = 'This is a test review.';
+        document.getElementById('verifiedPurchase').checked = true;
+        document.getElementById('termsAgree').checked = true;
+        
+        // Create form data and log entries
+        const formData = new FormData(reviewForm);
+        console.log('Form data entries:');
+        for (let pair of formData.entries()) {
+          console.log(pair[0] + ': ' + pair[1]);
+        }
+        
+        alert('Test data has been added to the form. Check browser console for form data entries.');
+      }
+      
+      // Add a test button
+      const testButton = document.createElement('button');
+      testButton.type = 'button';
+      testButton.textContent = 'Test Form Entries';
+      testButton.style.marginTop = '20px';
+      testButton.onclick = testFormEntries;
+      document.getElementById('reviewForm').after(testButton);
+      */
     });
   </script>
   

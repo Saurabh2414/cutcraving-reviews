@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Customer Reviews | CutCraving - Natural Health Products</title>
+  <title>Customer Reviews for Blue Tea, Peanut Butter & More | CutCraving</title>
   
   <!-- Meta Description for SEO -->
   <meta name="description" content="Read authentic customer reviews of CutCraving's Blue Tea, Peanut Butter, and other health products. Share your experience with our natural wellness range!">
@@ -20,14 +20,15 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   
+  <!-- Inline CSS -->
   <style>
     :root {
       --brand-green: #8CC63F;
       --brand-green-hover: #7DB735;
       --brand-green-light: #f4f9ed;
-      --star-color: #F1C40F;
+      --star-color: #FFA500;
       --text-primary: #2C3E50;
-      --text-secondary: #7f8c8d;
+      --text-secondary: #5A6A6B;
       --dark-blue: #34495e;
       --bg-light: #f9f9f9;
       --bg-white: #ffffff;
@@ -42,7 +43,7 @@
       --radius-lg: 12px;
       --radius-pill: 50px;
     }
-    
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Poppins', sans-serif; color: var(--text-primary); line-height: 1.6; background-color: var(--bg-light); }
     h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; line-height: 1.3; }
@@ -58,7 +59,7 @@
       border-radius: 0;
       box-shadow: 0 2px 10px var(--shadow-light);
     }
-    
+
     .limited-offer {
       display: inline-block;
       background-color: var(--brand-green);
@@ -69,9 +70,9 @@
       margin-bottom: 10px;
       animation: pulse 1.5s infinite;
     }
-    
+
     .limited-offer-dot { display: inline-block; width: 10px; height: 10px; background-color: white; border-radius: 50%; margin-right: 8px; }
-    
+
     .premium-heading { color: var(--dark-blue); margin-bottom: 5px; }
     .green-heading { color: var(--brand-green); font-size: 3.5rem; margin-bottom: 15px; display: block; white-space: nowrap; }
     .premium-heading h1 { font-size: 2.8rem; margin: 0; }
@@ -114,6 +115,58 @@
     .filter-btn:hover { background-color: var(--brand-green-light); border-color: var(--brand-green); }
     .filter-btn.active { background-color: var(--brand-green); border-color: var(--brand-green); color: white; }
 
+    /* Product Benefits Section */
+    .product-benefits { background-color: var(--bg-white); border-radius: var(--radius-lg); }
+    .product-benefits h2 { text-align: center; margin-bottom: 30px; color: var(--dark-blue); }
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+    .benefit-card { 
+      position: relative; 
+      background-color: #fff; 
+      border-radius: var(--radius-md); 
+      overflow: hidden; 
+      box-shadow: 0 3px 15px var(--shadow-light); 
+      transition: transform 0.3s ease; 
+    }
+    .benefit-card:hover { transform: translateY(-5px); }
+    .benefit-card img { 
+      width: 100%; 
+      height: 200px; 
+      object-fit: cover; 
+      border-bottom: 1px solid var(--border-light); 
+    }
+    .benefit-card .bestseller-badge { 
+      position: absolute; 
+      top: 10px; 
+      left: 10px; 
+      background-color: var(--brand-green); 
+      color: white; 
+      padding: 5px 10px; 
+      border-radius: var(--radius-sm); 
+      font-size: 0.8rem; 
+      font-weight: 500; 
+    }
+    .benefit-card-content { padding: 15px; }
+    .benefit-card h3 { color: var(--dark-blue); margin-bottom: 8px; font-size: 1.2rem; }
+    .benefit-card p { color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9rem; }
+    .benefit-card .shop-now-btn { 
+      display: inline-flex; 
+      align-items: center; 
+      background-color: var(--brand-green); 
+      color: white; 
+      padding: 8px 20px; 
+      border-radius: var(--radius-pill); 
+      text-decoration: none; 
+      font-weight: 500; 
+      font-size: 0.9rem; 
+      transition: background-color var(--transition-standard); 
+    }
+    .benefit-card .shop-now-btn:hover { background-color: var(--brand-green-hover); }
+    .benefit-card .shop-now-btn::after { 
+      content: "→"; 
+      margin-left: 5px; 
+      font-size: 1rem; 
+    }
+
     /* Reviews Grid */
     .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
     .review-card {
@@ -145,7 +198,7 @@
       font-weight: 500;
       box-shadow: 0 2px 5px rgba(140, 198, 63, 0.2);
     }
-    
+
     .review-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border-light); }
     .reviewer-info { display: flex; flex-direction: column; }
     .reviewer-name { font-weight: 600; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
@@ -172,6 +225,7 @@
     .product-link:hover { color: var(--brand-green-hover); text-decoration: underline; }
     .read-more-btn { font-size: 0.9rem; color: var(--brand-green); background: none; border: none; padding: 0; cursor: pointer; font-family: inherit; user-select: none; }
     .read-more-btn:hover { color: var(--brand-green-hover); text-decoration: underline; }
+    .read-more-btn:focus { outline: 2px solid var(--brand-green); outline-offset: 2px; }
 
     /* Write Review Section */
     .write-review-section {
@@ -204,11 +258,14 @@
       transition: border-color var(--transition-standard);
     }
     .form-control:focus { outline: none; border-color: var(--brand-green); box-shadow: 0 0 0 3px rgba(140, 198, 63, 0.2); }
+    .form-control:focus-visible { outline: 2px solid var(--brand-green); outline-offset: 2px; }
     textarea.form-control { min-height: 150px; resize: vertical; }
+    .form-text { display: block; margin-top: 5px; color: var(--text-secondary); font-size: 0.9rem; }
     .rating-input { display: flex; gap: 5px; flex-direction: row-reverse; justify-content: flex-end; }
     .rating-input input { display: none; }
     .rating-input label { cursor: pointer; font-size: 2rem; color: #d1d1d1; transition: color 0.2s; }
     .rating-input label:hover, .rating-input label:hover ~ label, .rating-input input:checked ~ label { color: var(--star-color); }
+    .rating-input label:focus { outline: 2px solid var(--brand-green); outline-offset: 2px; }
     .product-select {
       padding: 12px 15px;
       border: 1px solid var(--border-medium);
@@ -222,6 +279,7 @@
     .product-select:focus { outline: none; border-color: var(--brand-green); box-shadow: 0 0 0 3px rgba(140, 198, 63, 0.2); }
     .form-check { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
     .form-check-input { width: 18px; height: 18px; accent-color: var(--brand-green); }
+    .form-check-input:focus { outline: 2px solid var(--brand-green); outline-offset: 2px; }
     .form-check-label { font-size: 0.9rem; }
     .submit-btn {
       background-color: var(--brand-green);
@@ -239,6 +297,79 @@
     }
     .submit-btn:hover { background-color: var(--brand-green-hover); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(140, 198, 63, 0.3); }
     .submit-btn:active { transform: translateY(0); }
+    .submit-btn:focus { outline: 2px solid var(--brand-green); outline-offset: 2px; }
+
+    /* FAQ Section */
+    .faq-section { 
+      background-color: var(--bg-white); 
+      border-radius: var(--radius-lg); 
+      padding: 30px; 
+      box-shadow: 0 5px 25px var(--shadow-light); 
+      position: relative; 
+      overflow: hidden; 
+    }
+    .faq-section::before { 
+      content: ""; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 5px; 
+      background-color: var(--brand-green); 
+    }
+    .faq-section h2 { 
+      text-align: center; 
+      margin-bottom: 30px; 
+      color: var(--dark-blue); 
+      font-size: 2.2rem; 
+    }
+    .faq-section h2::after { 
+      content: ""; 
+      display: block; 
+      width: 80px; 
+      height: 3px; 
+      background-color: var(--brand-green); 
+      margin: 15px auto; 
+      border-radius: 2px; 
+    }
+    .faq-item { 
+      margin-bottom: 10px; 
+      border-bottom: 1px solid var(--border-light); 
+    }
+    .faq-question { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      padding: 15px 0; 
+      cursor: pointer; 
+      font-family: 'Playfair Display', serif; 
+      color: var(--dark-blue); 
+      font-size: 1.2rem; 
+      transition: color var(--transition-standard); 
+    }
+    .faq-question:hover { color: var(--brand-green); }
+    .faq-question::after { 
+      content: "+"; 
+      font-size: 1.5rem; 
+      color: var(--brand-green); 
+      transition: transform var(--transition-standard); 
+    }
+    .faq-question.active::after { 
+      content: "−"; 
+      transform: rotate(180deg); 
+    }
+    .faq-answer { 
+      max-height: 0; 
+      overflow: hidden; 
+      padding: 0 15px; 
+      color: var(--text-secondary); 
+      font-size: 0.95rem; 
+      transition: max-height 0.3s ease, padding 0.3s ease; 
+    }
+    .faq-answer.active { 
+      max-height: 200px; 
+      padding: 15px; 
+    }
 
     /* Feedback Popup */
     .feedback-popup {
@@ -269,6 +400,7 @@
       color: var(--text-secondary);
     }
     .feedback-popup .close-btn:hover { color: var(--brand-green); }
+    .feedback-popup .close-btn:focus { outline: 2px solid var(--brand-green); outline-offset: 2px; }
 
     /* Overlay for Popup */
     .overlay {
@@ -283,44 +415,17 @@
     }
     .overlay.show { display: block; }
 
-    /* Contact Section */
-    .contact-section {
-      text-align: center;
-      margin-top: 40px;
-      margin-bottom: 40px;
-      padding: 20px;
-      border-radius: var(--radius-lg);
-      background-color: var(--bg-light);
-      border: 1px solid var(--border-light);
-    }
-    .contact-section h3 { color: var(--dark-blue); font-size: 1.5rem; margin-bottom: 20px; }
-    .contact-info { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 20px; }
-    .contact-item { display: flex; align-items: center; gap: 10px; }
-    .contact-icon {
-      width: 40px;
-      height: 40px;
-      background-color: var(--brand-green-light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--brand-green);
-    }
-    .contact-text { font-size: 1.1rem; font-weight: 500; color: var(--text-primary); }
-    .contact-text a { color: var(--text-primary); text-decoration: none; transition: color var(--transition-standard); }
-    .contact-text a:hover { color: var(--brand-green); }
-
     /* Responsive Design */
     @media (max-width: 768px) {
       .premium-heading h1 { font-size: 2.4rem; }
       .green-heading { font-size: 2.6rem; }
       .reviews-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
       .form-row { flex-direction: column; gap: 0; }
       .reviews-stats { gap: 15px; }
       .stat-item { min-width: 100px; padding: 15px; }
-      .contact-info { flex-direction: column; align-items: center; gap: 20px; }
     }
-    
+
     @media (max-width: 480px) {
       .premium-heading h1 { font-size: 2rem; }
       .green-heading { font-size: 2.2rem; }
@@ -339,6 +444,13 @@
   </style>
 </head>
 <body>
+  <!-- Feedback Popup -->
+  <div class="overlay" id="overlay"></div>
+  <div class="feedback-popup" id="feedbackPopup">
+    <button class="close-btn" id="closePopup">×</button>
+    Thank you, we value your feedback!
+  </div>
+
   <header class="reviews-header section">
     <div class="container">
       <div class="limited-offer">
@@ -375,7 +487,7 @@
       </div>
     </div>
   </header>
-  
+
   <section class="section">
     <div class="container">
       <div class="reviews-grid">
@@ -389,7 +501,7 @@
           <div class="review-header">
             <div class="reviewer-info">
               <div class="reviewer-name">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
                   <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                 </svg>
                 Nidhi Singh
@@ -405,7 +517,7 @@
           </div>
           <div class="review-footer">
             <a href="/products/blue-tea" class="product-link">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V6c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v8h2.5V6H16z"/>
               </svg>
               Blue Tea
@@ -424,7 +536,7 @@
           <div class="review-header">
             <div class="reviewer-info">
               <div class="reviewer-name">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
                   <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                 </svg>
                 Sandeep Yadav
@@ -440,7 +552,7 @@
           </div>
           <div class="review-footer">
             <a href="/products/peanut-butter" class="product-link">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2zm0 4h-2V5h2v3zM4 19h16v2H4z"/>
               </svg>
               Peanut Butter
@@ -459,7 +571,7 @@
           <div class="review-header">
             <div class="reviewer-info">
               <div class="reviewer-name">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
                   <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                 </svg>
                 Praveen Kumar
@@ -475,7 +587,7 @@
           </div>
           <div class="review-footer">
             <a href="/products/chamomile-tea" class="product-link">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M2 19h18v2H2v-2zm2-1h14V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v13zm2-10h2v3H6v-3zm5 0h2v5h-2v-5zm5 0h2v7h-2V7z"/>
               </svg>
               Chamomile Tea
@@ -486,7 +598,8 @@
       </div>
     </div>
   </section>
-  
+
+  <!-- Write Review Section -->
   <section class="section">
     <div class="container">
       <div class="write-review-section" id="write-review">
@@ -494,19 +607,20 @@
           <h2>Share Your Experience</h2>
           <p>Your review helps others and improves our products—join the community!</p>
         </div>
-        <!-- Corrected form with proper Google Form entry IDs -->
         <form class="review-form" id="reviewForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdeN2j1JVwBAD0db7DHnuoXn1KRREAvNXlXvE6TS3j4AsJPZA/formResponse" method="POST" target="hidden-iframe">
           <div class="form-row">
             <div class="form-col">
               <div class="form-group">
                 <label for="customerName" class="form-label">Your Name</label>
-                <input type="text" id="customerName" name="entry.88163656" class="form-control" placeholder="Enter your name" required>
+                <input type="text" id="customerName" name="entry.88163656" class="form-control" placeholder="Enter your name" required aria-describedby="nameHelp">
+                <small id="nameHelp" class="form-text">Please provide your name.</small>
               </div>
             </div>
             <div class="form-col">
               <div class="form-group">
                 <label for="customerPhone" class="form-label">Phone Number</label>
-                <input type="tel" id="customerPhone" name="entry.1261310478" class="form-control" placeholder="+91 XXXXX XXXXX">
+                <input type="tel" id="customerPhone" name="entry.1261310478" class="form-control" placeholder="+91 XXXXX XXXXX" aria-describedby="phoneHelp">
+                <small id="phoneHelp" class="form-text">Optional: Share your contact number.</small>
               </div>
             </div>
           </div>
@@ -514,36 +628,38 @@
             <div class="form-col">
               <div class="form-group">
                 <label for="customerEmail" class="form-label">Email Address</label>
-                <input type="email" id="customerEmail" name="entry.1594600333" class="form-control" placeholder="Enter your email" required>
-                <small class="form-text">Your email will not be published.</small>
+                <input type="email" id="customerEmail" name="entry.1594600333" class="form-control" placeholder="Enter your email" required aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text">Your email will not be published.</small>
               </div>
             </div>
             <div class="form-col">
               <div class="form-group">
                 <label for="productSelect" class="form-label">Select Product</label>
-                <select id="productSelect" name="entry.117903416" class="product-select" required>
+                <select id="productSelect" name="entry.117903416" class="product-select" required aria-describedby="productHelp">
                   <option value="" disabled selected>Choose the product...</option>
-                  <option value="Blue Tea">Blue Tea</option>
                   <option value="Peanut Butter">Peanut Butter</option>
+                  <option value="Blue Tea">Blue Tea</option>
                   <option value="Chamomile Tea">Chamomile Tea</option>
-                  <option value="Active Lifestyle Combo">Active Lifestyle Combo</option>
+                  <option value="Hibiscus Tea">Hibiscus Tea</option>
                 </select>
+                <small id="productHelp" class="form-text">Select the product you are reviewing.</small>
               </div>
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label">Your Rating</label>
-            <div class="rating-input">
-              <input type="radio" id="star5" name="entry.1953070730" value="5"><label for="star5">★</label>
-              <input type="radio" id="star4" name="entry.1953070730" value="4"><label for="star4">★</label>
-              <input type="radio" id="star3" name="entry.1953070730" value="3"><label for="star3">★</label>
-              <input type="radio" id="star2" name="entry.1953070730" value="2"><label for="star2">★</label>
-              <input type="radio" id="star1" name="entry.1953070730" value="1"><label for="star1">★</label>
+            <label class="form-label" id="ratingLabel">Your Rating</label>
+            <div class="rating-input" role="radiogroup" aria-labelledby="ratingLabel">
+              <input type="radio" id="star5" name="entry.1953070730" value="5"><label for="star5" aria-label="5 stars">★</label>
+              <input type="radio" id="star4" name="entry.1953070730" value="4"><label for="star4" aria-label="4 stars">★</label>
+              <input type="radio" id="star3" name="entry.1953070730" value="3"><label for="star3" aria-label="3 stars">★</label>
+              <input type="radio" id="star2" name="entry.1953070730" value="2"><label for="star2" aria-label="2 stars">★</label>
+              <input type="radio" id="star1" name="entry.1953070730" value="1"><label for="star1" aria-label="1 star">★</label>
             </div>
           </div>
           <div class="form-group">
             <label for="reviewText" class="form-label">Your Review</label>
-            <textarea id="reviewText" name="entry.872365291" class="form-control" placeholder="Tell others about your experience..." required></textarea>
+            <textarea id="reviewText" name="entry.872365291" class="form-control" placeholder="Tell others about your experience..." required aria-describedby="reviewHelp"></textarea>
+            <small id="reviewHelp" class="form-text">Share your honest feedback.</small>
           </div>
           <div class="form-group">
             <div class="form-check">
@@ -560,57 +676,105 @@
       </div>
     </div>
   </section>
-  
-  <section class="section">
+
+  <!-- Product Benefits Section -->
+  <section class="section product-benefits">
     <div class="container">
-      <div class="contact-section">
-        <h3>Questions or Need Assistance?</h3>
-        <div class="contact-info">
-          <div class="contact-item">
-            <div class="contact-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1.45 1 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-              </svg>
-            </div>
-            <div class="contact-text"><a href="tel:+919876543210">+91 9876 543 210</a></div>
+      <h2>Explore Our Products</h2>
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="bestseller-badge">Bestseller</div>
+          <img src="https://cdn.shopify.com/s/files/1/0600/1904/8583/files/49.png?v=1735840699" alt="Peanut Butter">
+          <div class="benefit-card-content">
+            <h3>100% Pure Peanut Butter</h3>
+            <p>Just pure peanuts. No salt, no sugar, no preservatives. Perfect for fitness enthusiasts.</p>
+            <a href="/products/peanut-butter" class="shop-now-btn">Shop Now</a>
           </div>
-          <div class="contact-item">
-            <div class="contact-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-              </svg>
-            </div>
-            <div class="contact-text"><a href="mailto:support@cutcraving.com">support@cutcraving.com</a></div>
+        </div>
+        <div class="benefit-card">
+          <img src="https://cdn.shopify.com/s/files/1/0600/1904/8583/files/Untitled_design_11.png?v=1736106433" alt="Blue Tea">
+          <div class="benefit-card-content">
+            <h3>Blue Tea</h3>
+            <p>Antioxidant-rich butterfly pea flower tea for natural wellness support.</p>
+            <a href="/products/blue-tea" class="shop-now-btn">Shop Now</a>
           </div>
-          <div class="contact-item">
-            <div class="contact-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-            </div>
-            <div class="contact-text">123 Health Street, New Delhi, 110001</div>
+        </div>
+        <div class="benefit-card">
+          <img src="https://cdn.shopify.com/s/files/1/0600/1904/8583/files/Untitled_design_7_470afda7-be61-4e92-a65a-142f22bf5848.png?v=1736105051" alt="Chamomile Tea">
+          <div class="benefit-card-content">
+            <h3>Chamomile Tea</h3>
+            <p>Calming chamomile blend for peaceful relaxation and better sleep.</p>
+            <a href="/products/chamomile-tea" class="shop-now-btn">Shop Now</a>
+          </div>
+        </div>
+        <div class="benefit-card">
+          <img src="https://cdn.shopify.com/s/files/1/0600/1904/8583/files/1_97805920-57fb-47ab-8cb0-ba793a29f243.png?v=1735415939">
+          <div class="benefit-card-content">
+            <h3>Hibiscus Tea</h3>
+            <p>Vitamin-rich hibiscus blend for natural health support.</p>
+            <a href="/products/hibiscus-tea" class="shop-now-btn">Shop Now</a>
           </div>
         </div>
       </div>
     </div>
   </section>
-  
-  <!-- Feedback Popup -->
-  <div class="overlay" id="overlay"></div>
-  <div class="feedback-popup" id="feedbackPopup">
-    <button class="close-btn" id="closePopup">×</button>
-    Thank you, we value your feedback!
-  </div>
+
+  <!-- FAQ Section -->
+  <section class="section faq-section">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <div class="faq-question">What makes CutCraving products natural?</div>
+        <div class="faq-answer">
+          <p>Our products, including Blue Tea, Peanut Butter, Chamomile Tea, and Hibiscus Tea, are made with 100% natural ingredients, free from artificial preservatives, colors, and flavors, ensuring pure wellness in every serving.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How does Blue Tea support weight management?</div>
+        <div class="faq-answer">
+          <p>Blue Tea, derived from butterfly pea flowers, is rich in antioxidants that boost metabolism and aid in fat burning, making it an excellent choice for natural weight management support.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Is CutCraving Peanut Butter suitable for fitness enthusiasts?</div>
+        <div class="faq-answer">
+          <p>Absolutely! Our Peanut Butter is 100% pure, with no added salt, sugar, or preservatives. It’s packed with protein and healthy fats, making it a perfect guilt-free snack for fitness enthusiasts.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can Chamomile Tea help with sleep?</div>
+        <div class="faq-answer">
+          <p>Yes, our Chamomile Tea is a calming blend designed to promote relaxation and improve sleep quality. It’s naturally caffeine-free, making it ideal for unwinding before bed.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What are the health benefits of Hibiscus Tea?</div>
+        <div class="faq-answer">
+          <p>Hibiscus Tea is rich in vitamin C and antioxidants, supporting immune health and providing a refreshing way to stay hydrated while promoting overall wellness.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Are these products suitable for daily consumption?</div>
+        <div class="faq-answer">
+          <p>Yes, all our products—Blue Tea, Peanut Butter, Chamomile Tea, and Hibiscus Tea—are crafted for daily use, offering natural benefits to support your wellness journey.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Hidden iframe for form submission -->
   <iframe name="hidden-iframe" id="hidden-iframe" style="display:none;"></iframe>
   
+  <!-- Inline JavaScript -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // READ MORE BUTTONS
+      console.log('DOM fully loaded and parsed');
+
+      // Read More Buttons
       const readMoreButtons = document.querySelectorAll('.read-more-btn');
       readMoreButtons.forEach(button => {
         button.addEventListener('click', function() {
+          console.log('Read More button clicked');
           const reviewId = this.getAttribute('data-review-id');
           const reviewText = this.closest('.review-card').querySelector('.review-text');
           const expanded = this.getAttribute('aria-expanded') === 'true';
@@ -628,12 +792,13 @@
         });
       });
       
-      // FILTER BUTTONS
+      // Filter Buttons
       const filterButtons = document.querySelectorAll('.filter-btn');
       const reviewCards = document.querySelectorAll('.review-card');
       
       filterButtons.forEach(button => {
         button.addEventListener('click', function() {
+          console.log('Filter button clicked:', this.textContent);
           filterButtons.forEach(btn => btn.classList.remove('active'));
           this.classList.add('active');
           const filter = this.textContent.toLowerCase().replace(' ', '-');
@@ -645,7 +810,29 @@
         });
       });
       
-      // FORM SUBMISSION
+      // FAQ Accordion
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+          const answer = this.nextElementSibling;
+          const isActive = this.classList.contains('active');
+          
+          // Close all other FAQ items
+          faqQuestions.forEach(q => {
+            const a = q.nextElementSibling;
+            if (q !== this) {
+              q.classList.remove('active');
+              a.classList.remove('active');
+            }
+          });
+          
+          // Toggle the clicked FAQ item
+          this.classList.toggle('active');
+          answer.classList.toggle('active');
+        });
+      });
+      
+      // Form Submission
       const reviewForm = document.getElementById('reviewForm');
       const feedbackPopup = document.getElementById('feedbackPopup');
       const overlay = document.getElementById('overlay');
@@ -653,13 +840,13 @@
       const hiddenIframe = document.getElementById('hidden-iframe');
 
       if (!reviewForm || !feedbackPopup || !overlay || !closePopup || !hiddenIframe) {
-        console.error('Required elements not found');
+        console.error('Required elements not found:', { reviewForm, feedbackPopup, overlay, closePopup, hiddenIframe });
         return;
       }
+      console.log('All required elements found');
 
-      // Handle iframe load event (occurs after form submission)
+      // Handle iframe load event (after form submission)
       hiddenIframe.addEventListener('load', function() {
-        // This will trigger after form submission
         console.log('Form submitted via iframe');
         
         // Show confirmation popup
@@ -671,24 +858,26 @@
         
         // Auto-close popup after 3 seconds
         setTimeout(() => {
+          console.log('Auto-closing popup after 3 seconds');
           overlay.classList.remove('show');
           feedbackPopup.classList.remove('show');
         }, 3000);
       });
 
-      // Form validation without preventing normal submission
+      // Form validation before submission
       reviewForm.addEventListener('submit', function(e) {
-        // Get form data
-        const formData = new FormData(reviewForm);
-        
-        // Log form data being submitted
         console.log('Form submission attempted');
+        
+        // Get form data
+        const formData = new FormData(this);
+        
+        // Log form data for debugging
         console.log('Submitting form data:');
         for (let pair of formData.entries()) {
           console.log(`${pair[0]}: ${pair[1]}`);
         }
         
-        // Basic validation
+        // Validate required fields
         const name = formData.get('entry.88163656')?.trim();
         const email = formData.get('entry.1594600333')?.trim();
         const product = formData.get('entry.117903416')?.trim();
@@ -696,35 +885,35 @@
         const review = formData.get('entry.872365291')?.trim();
         const termsService = formData.get('entry.1817340342');
 
-        // Validate required fields
         if (!name || !email || !product || !rating || !review || !termsService) {
-          console.log('Validation failed: Missing required fields');
+          console.log('Validation failed: Missing required fields', { name, email, product, rating, review, termsService });
           alert('Please fill out all required fields and agree to the terms.');
-          e.preventDefault(); // Only prevent submission if validation fails
+          e.preventDefault();
           return;
         }
 
         // Validate email format
         const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (!emailRegex.test(email)) {
-          console.log('Validation failed: Invalid email');
+          console.log('Validation failed: Invalid email', email);
           alert('Please enter a valid email address.');
           e.preventDefault();
           return;
         }
 
-        // If validation passes, let the form submit naturally to the iframe
         console.log('Form validation passed, submitting to iframe');
       });
 
       // Close popup when X button is clicked
       closePopup.addEventListener('click', function() {
+        console.log('Close popup clicked');
         overlay.classList.remove('show');
         feedbackPopup.classList.remove('show');
       });
 
       // Close popup when overlay is clicked
       overlay.addEventListener('click', function() {
+        console.log('Overlay clicked');
         overlay.classList.remove('show');
         feedbackPopup.classList.remove('show');
       });

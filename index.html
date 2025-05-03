@@ -606,286 +606,76 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // READ MORE BUTTONS
-      const readMoreButtons = document.querySelectorAll('.read-more-btn');
-      readMoreButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          const reviewId = this.getAttribute('data-review-id');
-          const reviewText = this.closest('.review-card').querySelector('.review-text');
-          const expanded = this.getAttribute('aria-expanded') === 'true';
-          
-          reviewText.style.transition = 'max-height 0.3s ease';
-          if (expanded) {
-            reviewText.classList.remove('expanded');
-            this.setAttribute('aria-expanded', 'false');
-            this.textContent = 'Read More';
-          } else {
-            reviewText.classList.add('expanded');
-            this.setAttribute('aria-expanded', 'true');
-            this.textContent = 'Read Less';
-          }
-        });
-      });
-      
-      // FILTER BUTTONS
-      const filterButtons = document.querySelectorAll('.filter-btn');
-      const reviewCards = document.querySelectorAll('.review-card');
-      
-      filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          filterButtons.forEach(btn => btn.classList.remove('active'));
-          this.classList.add('active');
-          const filter = this.textContent.toLowerCase().replace(' ', '-');
-          
-          reviewCards.forEach(card => {
-            const product = card.getAttribute('data-product');
-            card.style.display = (filter === 'all-products' || product === filter) ? 'flex' : 'none';
-          });
-        });
-      });
-      
-      // FORM SUBMISSION
-      const reviewForm = document.getElementById('reviewForm');
-      const feedbackPopup = document.getElementById('feedbackPopup');
-      const overlay = document.getElementById('overlay');
-      const closePopup = document.getElementById('closePopup');
-
-      if (!reviewForm || !feedbackPopup || !overlay || !closePopup) {
-        console.error('Required elements not found');
-        return;
-      }
-
-      // Remove any existing submit event listeners to prevent duplicates
-      reviewForm.removeEventListener('submit', handleFormSubmit);
-      reviewForm.addEventListener('submit', handleFormSubmit);
-
-      function handleFormSubmit(e) {
-  e.preventDefault(); // Prevent default form submission
-  console.log('Form submission triggered');
-
-  // Get form data
-  const formData = new FormData(reviewForm);
-  
-  // Create URL-encoded form data - this is crucial for Google Forms
-  const urlEncodedData = new URLSearchParams(formData).toString();
-  console.log('URL-encoded data:', urlEncodedData);
-  
-  // Use the fetch API with proper content type for Google Forms
-  fetch(reviewForm.action, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: urlEncodedData,
-    mode: 'no-cors'
-  })
-  .then(() => {
-    console.log('Form submitted successfully');
-    
-    // Show confirmation popup
-    overlay.classList.add('show');
-    feedbackPopup.classList.add('show');
-    reviewForm.reset();
-    
-    // Auto-close popup after 3 seconds
-    setTimeout(() => {
-      overlay.classList.remove('show');
-      feedbackPopup.classList.remove('show');
-    }, 3000);
-  })
-  .catch(error => {
-    console.error('Error submitting form:', error);
-    alert('There was an error submitting your review. Please try again.');
-  });
-}
-
-        // Validate email format
-        const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (!emailRegex.test(email)) {
-          console.log('Validation failed: Invalid email');
-          alert('Please enter a valid email address.');
-          return;
-        }
-        
-        // Submit the form using fetch API with no-cors mode
-        fetch(reviewForm.action, {
-          method: 'POST',
-          body: formData,
-          mode: 'no-cors' // Important for cross-domain requests to Google Forms
-        })
-        .then(() => {
-          console.log('Form submitted successfully');
-          
-          // Show confirmation popup
-          overlay.classList.add('show');
-          feedbackPopup.classList.add('show');
-          reviewForm.reset();
-          
-          // Auto-close popup after 3 seconds
-          setTimeout(() => {
-            overlay.classList.remove('show');
-            feedbackPopup.classList.remove('show');
-          }, 3000);
-        })
-        .catch(error => {
-          console.error('Error submitting form:', error);
-          alert('There was an error submitting your review. Please try again.');
-        });
-      }
-
-      // Close popup when X button is clicked
-      closePopup.addEventListener('click', function() {
-        overlay.classList.remove('show');
-        feedbackPopup.classList.remove('show');
-      });
-
-      // Close popup when overlay is clicked
-      overlay.addEventListener('click', function() {
-        overlay.classList.remove('show');
-        feedbackPopup.classList.remove('show');
-      });
-      
-      // FOR TESTING ONLY - Uncomment during development to test form entry IDs
-      /*
-      function testFormEntries() {
-        // Add test data
-        document.getElementById('customerName').value = 'Test User';
-        document.getElementById('customerPhone').value = '9876543210';
-        document.getElementById('customerEmail').value = 'test@example.com';
-        document.getElementById('productSelect').value = 'Blue Tea';
-        document.getElementById('star4').checked = true;
-        document.getElementById('reviewText').value = 'This is a test review.';
-        document.getElementById('verifiedPurchase').checked = true;
-        document.getElementById('termsAgree').checked = true;
-        
-        // Create form data and log entries
-        const formData = new FormData(reviewForm);
-        console.log('Form data entries:');
-        for (let pair of formData.entries()) {
-          console.log(pair[0] + ': ' + pair[1]);
-        }
-        
-        alert('Test data has been added to the form. Check browser console for form data entries.');
-      }
-      
-      // Add a test button
-      const testButton = document.createElement('button');
-      testButton.type = 'button';
-      testButton.textContent = 'Test Form Entries';
-      testButton.style.marginTop = '20px';
-      testButton.onclick = testFormEntries;
-      document.getElementById('reviewForm').after(testButton);
-      */
-    });
-  </script>
-  
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Customer Reviews - CutCraving",
-    "url": "https://cutcraving.com/pages/reviews",
-    "description": "Read authentic customer reviews of CutCraving's natural health products like Blue Tea, Peanut Butter, and Chamomile Tea. Share your experience!",
-    "publisher": {
-      "@type": "Organization",
-      "name": "CutCraving",
-      "url": "https://cutcraving.com",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://cutcraving.com/assets/logo.png"
-      }
-    },
-    "mainEntity": {
-      "@type": "ItemList",
-      "itemListElement": [
-        {
-          "@type": "Review",
-          "author": {"@type": "Person", "name": "Nidhi Singh"},
-          "reviewBody": "Blue Tea bilkul amazing hai! Weight loss me help mili hai, aur taste kaafi acha lagta hain!",
-          "reviewRating": {"@type": "Rating", "ratingValue": "4", "bestRating": "5"},
-          "datePublished": "2025-04-01",
-          "itemReviewed": {
-            "@type": "Product",
-            "name": "Blue Tea",
-            "url": "https://cutcraving.com/products/blue-tea",
-            "image": "https://cutcraving.com/products/blue-tea.jpg",
-            "brand": {"@type": "Brand", "name": "CutCraving"},
-            "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.2", "reviewCount": "50"}
-          }
-        },
-        {
-          "@type": "Review",
-          "author": {"@type": "Person", "name": "Sandeep Yadav"},
-          "reviewBody": "Peanut Butter bilkul perfect hai! Itna creamy aur rich hai, bina guilt ke maza aata hai!",
-          "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
-          "datePublished": "2025-04-02",
-          "itemReviewed": {
-            "@type": "Product",
-            "name": "Peanut Butter",
-            "url": "https://cutcraving.com/products/peanut-butter",
-            "image": "https://cutcraving.com/products/peanut-butter.jpg",
-            "brand": {"@type": "Brand", "name": "CutCraving"},
-            "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "75"}
-          }
-        },
-        {
-          "@type": "Review",
-          "author": {"@type": "Person", "name": "Praveen Kumar"},
-          "reviewBody": "Chamomile Tea thoda mild hai, par sone se pehle kaafi soothing lagti hai.",
-          "reviewRating": {"@type": "Rating", "ratingValue": "3", "bestRating": "5"},
-          "datePublished": "2025-04-03",
-          "itemReviewed": {
-            "@type": "Product",
-            "name": "Chamomile Tea",
-            "url": "https://cutcraving.com/products/chamomile-tea",
-            "image": "https://cutcraving.com/products/chamomile-tea.jpg",
-            "brand": {"@type": "Brand", "name": "CutCraving"},
-            "aggregateRating": {"@type": "AggregateRating", "ratingValue": "3.9", "reviewCount": "30"}
-          }
-        }
-      ],
-      "numberOfItems": 3,
-      "itemListOrder": "http://schema.org/ItemListOrderDescending"
-    },
-    "potentialAction": {"@type": "WriteAction", "target": "https://cutcraving.com/pages/reviews#write-review"},
-    "inLanguage": ["en", "hi"],
-    "lastReviewed": "2025-05-01"
-  }
-  </script>
-// Add this script to your page to debug the form submission
-// Place it just before the closing </body> tag
-
-<script>
 document.addEventListener('DOMContentLoaded', function() {
+  // READ MORE BUTTONS
+  const readMoreButtons = document.querySelectorAll('.read-more-btn');
+  readMoreButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const reviewId = this.getAttribute('data-review-id');
+      const reviewText = this.closest('.review-card').querySelector('.review-text');
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      
+      reviewText.style.transition = 'max-height 0.3s ease';
+      if (expanded) {
+        reviewText.classList.remove('expanded');
+        this.setAttribute('aria-expanded', 'false');
+        this.textContent = 'Read More';
+      } else {
+        reviewText.classList.add('expanded');
+        this.setAttribute('aria-expanded', 'true');
+        this.textContent = 'Read Less';
+      }
+    });
+  });
+  
+  // FILTER BUTTONS
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const reviewCards = document.querySelectorAll('.review-card');
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      const filter = this.textContent.toLowerCase().replace(' ', '-');
+      
+      reviewCards.forEach(card => {
+        const product = card.getAttribute('data-product');
+        card.style.display = (filter === 'all-products' || product === filter) ? 'flex' : 'none';
+      });
+    });
+  });
+  
+  // FORM SUBMISSION
   const reviewForm = document.getElementById('reviewForm');
   const feedbackPopup = document.getElementById('feedbackPopup');
   const overlay = document.getElementById('overlay');
   const closePopup = document.getElementById('closePopup');
   const hiddenIframe = document.getElementById('hidden-iframe');
 
-  if (!reviewForm || !feedbackPopup || !overlay || !closePopup || !hiddenIframe) {
+  if (!reviewForm || !feedbackPopup || !overlay || !closePopup) {
     console.error('Required elements not found');
     return;
   }
 
   // Handle iframe load event (occurs after form submission)
-  hiddenIframe.addEventListener('load', function() {
-    console.log('Form submitted via iframe');
-    
-    // Show confirmation popup
-    overlay.classList.add('show');
-    feedbackPopup.classList.add('show');
-    
-    // Reset form
-    reviewForm.reset();
-    
-    // Auto-close popup after 3 seconds
-    setTimeout(() => {
-      overlay.classList.remove('show');
-      feedbackPopup.classList.remove('show');
-    }, 3000);
-  });
+  if (hiddenIframe) {
+    hiddenIframe.addEventListener('load', function() {
+      console.log('Form submitted via iframe');
+      
+      // Show confirmation popup
+      overlay.classList.add('show');
+      feedbackPopup.classList.add('show');
+      
+      // Reset form
+      reviewForm.reset();
+      
+      // Auto-close popup after 3 seconds
+      setTimeout(() => {
+        overlay.classList.remove('show');
+        feedbackPopup.classList.remove('show');
+      }, 3000);
+    });
+  }
 
   // Form validation without preventing normal submission
   reviewForm.addEventListener('submit', function(e) {
@@ -908,6 +698,15 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
+    // Validate email format
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!emailRegex.test(email)) {
+      console.log('Validation failed: Invalid email');
+      alert('Please enter a valid email address.');
+      e.preventDefault();
+      return;
+    }
+
     // If validation passes, let the form submit naturally to the iframe
     console.log('Form validation passed, submitting to iframe');
   });
@@ -923,9 +722,9 @@ document.addEventListener('DOMContentLoaded', function() {
     overlay.classList.remove('show');
     feedbackPopup.classList.remove('show');
   });
-});
-  
-  // Add a test button for debugging
+
+  // FOR DEBUGGING - Uncomment during development to test form entry IDs
+  /*
   const debugButton = document.createElement('button');
   debugButton.type = 'button';
   debugButton.textContent = 'Debug Form';
@@ -937,26 +736,6 @@ document.addEventListener('DOMContentLoaded', function() {
   debugButton.style.cursor = 'pointer';
   
   debugButton.onclick = function() {
-    debugFormFields();
-  };
-  
-  // Insert the debug button after the form
-  reviewForm.parentNode.insertBefore(debugButton, reviewForm.nextSibling);
-  
-  // Debug function to check form fields
-  function debugFormFields() {
-    console.log('=== FORM FIELD DEBUGGING ===');
-    console.log('Form action:', reviewForm.action);
-    console.log('Form method:', reviewForm.method);
-    
-    // Get all form fields and their values
-    const formData = new FormData(reviewForm);
-    
-    console.log('Form fields and their values:');
-    for (let pair of formData.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
-    }
-    
     // Add test data
     document.querySelector('input[name="entry.2005620554"]').value = 'Test User';
     document.querySelector('input[name="entry.1045781291"]').value = '9876543210';
@@ -967,7 +746,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('input[name="entry.2137556282"]').checked = true;
     document.querySelector('input[name="entry.2069858001"]').checked = true;
     
-    // Create form data again with the test values
+    // Create form data with the test values
     const testFormData = new FormData(reviewForm);
     
     console.log('Test form fields and their values:');
@@ -975,27 +754,12 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log(`${pair[0]}: ${pair[1]}`);
     }
     
-    console.log('=== END DEBUGGING ===');
-    
-    alert('Debug information has been logged to the console. You can now submit the form to test or check the console for field data.');
-  }
+    alert('Debug information has been logged to the console. You can now submit the form to test.');
+  };
   
-  // Monitor form submission
-  reviewForm.addEventListener('submit', function(e) {
-    // Log submission attempt
-    console.log('Form submission attempted');
-    
-    // Log form data being submitted
-    const formData = new FormData(reviewForm);
-    console.log('Submitting form data:');
-    for (let pair of formData.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
-    }
-    
-    // Don't prevent the default submission - we want to see what happens naturally
-    // However, log that we've reached this point
-    console.log('Continuing with form submission...');
-  });
+  // Insert the debug button after the form
+  reviewForm.parentNode.insertBefore(debugButton, reviewForm.nextSibling);
+  */
 });
 </script>
 <!-- Add this hidden iframe just before the closing </body> tag -->
